@@ -1,0 +1,1 @@
+"use strict";!function(){function e(e,o,t){e.hotel=[],e.search=function(e){t.path("/search").search("country",e),console.log(e)},e.hotel=o.all(),e.data=e.hotel.slice(0,5),e.getMoreData=function(){e.data=e.hotel.slice(0,e.data.length+5),console.log("hello",e.data)},e.searchTerm=t.search().country}var o=[];angular.module("hotel.search.com",o).controller("SearchController",e)}();

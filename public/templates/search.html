@@ -1,0 +1,101 @@
+<div ng-controller="SearchController">
+    <div layout="column" ng-cloak class="md-inline-form">
+        <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+            <form name="searchForm" ng-submit="ctrl.search(searchTerm)" novalidate>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block">
+                        <label>Location</label>
+                        <input name="country" ng-model="searchTerm" required>
+                    </md-input-container>
+                </div>
+            </form>
+        </md-content>
+    </div>
+    <md-toolbar class="md-hue-1" hide-xs>
+        <div class="md-toolbar-tools">
+            <div flex>
+                <span>Location : {{searchTerm}}</span>
+            </div>
+            <div flex> <span>check-in : </span></div>
+            <div flex><span>check-out : </span></div>
+            <div flex><span>no of nights : </span></div>
+            <md-button ng-click="openDialog($event)" class="md-raised">modify</md-button>
+        </div>
+    </md-toolbar>
+    <md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+            <div hide-xs>
+                <h3>
+          <span>{{(data |filter:searchTerm).length}} founds</span>
+        </h3>
+            </div>
+            <span flex></span>
+            <md-button class="">show +- 3 days</md-button>
+            <md-button class="">group by distance</md-button>
+            <md-button class="">group by star</md-button>
+        </div>
+    </md-toolbar>
+    <md-content layout-padding>
+        <div layout="row" layout-wrap layout-xs="column" infinite-scroll="getMoreData()">
+            <md-card flex="90" flex-sm="80" flex-offset="5" ng-repeat="item in data | filter:searchTerm">
+                <div layout="row" layout-xs="column">
+                    <div flex="18" layout-align="start start">
+                        <md-card-title-media>
+                            <img src="images/pic.jpg" class="md-media-sm card-media">
+                        </md-card-title-media>
+                    </div>
+                    <div flex="43" layout-align="center center">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">{{item.itemName}}</span>
+                                <span class="md-subhead">{{item.address}}</span>
+                                <md-card-actions>
+                                    <md-button aria-label="Favorite">
+                                        <md-icon md-svg-icon="images/airo.svg"></md-icon>
+                                        {{item.distanceByFlight}}
+                                    </md-button>
+                                    <md-button aria-label="Settings">
+                                        <md-icon md-svg-icon="images/train.svg"></md-icon>
+                                        {{item.distanceByTrain}}
+                                    </md-button>
+                                    <md-button class="md-primary" href="{{item.map}}">
+                                        map
+                                    </md-button>
+                                    <md-button class="md-primary">{{item.star}}
+                                    </md-button>
+                                </md-card-actions>
+                            </md-card-title-text>
+                        </md-card-title>
+                        <md-card-actions>
+                            Include:
+                            <md-button ng-repeat="etc in item.service"> {{etc}}</md-button>
+                        </md-card-actions>
+                    </div>
+                    <div flex layout-align="end end">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <div layout="row">
+                                    <div flex layout-align="start start">
+                                        <span class="md-headline">{{item.price}}</span>
+                                    </div>
+                                    <div flex layout-align="end end">
+                                        <span class="md-subhead">({{item.type}})</span>
+                                    </div>
+                                </div>
+                                <md-button class="md-raised md-primary">Book</md-button>
+                                <md-card-actions layout="row" layout-align="center center">
+                                    <md-button class="md-icon-button" aria-label="Favorite" ng-repeat="icon in item.feature">
+                                        <md-icon md-svg-icon="{{icon}}"></md-icon>
+                                    </md-button>
+                                </md-card-actions>
+                            </md-card-title-text>
+                        </md-card-title>
+                    </div>
+                </div>
+            </md-card>
+            <div ng-show="!(data |filter:searchTerm).length">
+                <p>No Results Found for your location</p>
+            </div>
+        </div>
+    </md-content>
+</div>

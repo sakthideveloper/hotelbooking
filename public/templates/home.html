@@ -1,0 +1,117 @@
+<div ng-controller="DashboardController as ctrl">
+    <md-toolbar class="search-row-wrapper" layout-wrap style="min-height: 280px;">
+        <form name="searchForm" ng-submit="ctrl.search(ctrl.searchText)">
+            <div layout="row" layout-padding layout-sm="column" layout-align="center center">
+                <div flex="60" flex-offset="4">
+                    <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.display" md-min-length="0" placeholder="Enter location to search" required name="myEmail">
+                        <div ng-messages="searchForm.myEmail.$error" role="alert">
+                            <div ng-if="showRequiredError">
+                                <div ng-message="required">Please enter something</div>
+                            </div>
+                        </div>
+                        <md-item-template>
+                            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No states matching "{{ctrl.searchText}}" were found.
+                        </md-not-found>
+                    </md-autocomplete>
+                </div>
+            </div>
+            <div layout="row" layout-xs layout-align="center center">
+                <div flex-gt-sm="45">
+                    <md-datepicker ng-model="checkin" md-placeholder="Check in"></md-datepicker>
+                </div>
+                <div flex-gt-sm="45">
+                    <md-datepicker ng-model="checkout" md-placeholder="Check out"></md-datepicker>
+                </div>
+            </div>
+            <div layout="row" layout-xs layout-align="center center">
+                <div flex-gt-sm="45">
+                    <md-input-container>
+                        <label>No of Nights</label>
+                        <md-select ng-model="noOfNight">
+                            <md-option ng-repeat="night in ctrl.nights" value="{{night.abbrev}}" ng-disabled="$index === 1">
+                                {{night.abbrev}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div flex-gt-sm="45">
+                    <md-input-container>
+                        <label>No of Travellers</label>
+                        <md-select ng-model="noOfTraveller">
+                            <md-option ng-repeat="traveller in ctrl.travellers" value="{{traveller.abbrev}}" ng-disabled="$index === 1">
+                                {{traveller.abbrev}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+            <div layout="row" layout-xs layout-align="center center">
+                <md-button ng-click="ctrl.search(ctrl.searchText)" class="md-primary md-raised md-hue-2">Filter Flights</md-button>
+            </div>
+        </form>
+    </md-toolbar>
+    <md-content class="md-padding" layout-xs="column" layout="row">
+        <div flex-xs flex-gt-xs="50" layout="column">
+            <md-card>
+                <img ng-src="images/bangalore-to-delhi-flights.jpg" class="md-card-image" alt="Washed Out">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Bangalore to cochin flights {{title}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>
+                        Besides the direct flights, there is a good frequency of connecting flights as well. All domestic carriers provide these flights, and their stopover locations are Mumbai, Hyderabad and Chennai.
+                    </p>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div flex-xs flex-gt-xs="50" layout="column">
+            <md-card>
+                <img ng-src="images/delhi-to-mumbai-flights.jpg" class="md-card-image" alt="Washed Out">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Bangalore to Delhi flights</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>
+                        Besides the direct flights, there is a good frequency of connecting flights as well. All domestic carriers provide these flights, and their stopover locations are Mumbai, Hyderabad and Chennai.
+                    </p>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div flex-xs flex-gt-xs="50" layout="column">
+            <md-card>
+                <img ng-src="images/mumbai-to-goa-flights.jpg" class="md-card-image" alt="Washed Out">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Bangalore to Goa Flights</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>
+                        Besides the direct flights, there is a good frequency of connecting flights as well. All domestic carriers provide these flights, and their stopover locations are Mumbai, Hyderabad and Chennai.
+                    </p>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column" layout-align="space-around">
+        <div flex-gt-sm="45">
+            <h3>Connectivity to Nearby Cities of Delhi</h3>
+            <p>
+                The state-of-the-art Kempegowda International Airport of Bangalore is among the busiest airports in India, catering to about 10 million passengers in a year.
+            </p>
+        </div>
+        <div flex-gt-sm="45">
+            <h3>Bangalore to Delhi Flight Booking</h3>
+            <p>
+                The airport serves people living in close by regions as well, such as Hosur, Tumkur, Thiruvannamalai, Kolar, Chintamani, Nandi Hills and others.
+            </p>
+        </div>
+    </md-content>
+</div>
